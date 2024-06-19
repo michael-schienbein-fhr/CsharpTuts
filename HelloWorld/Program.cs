@@ -49,6 +49,9 @@
 
             Console.WriteLine();
             Console.ResetColor();
+            Console.Beep(440, 500);
+            Console.Beep(523, 500);
+            Console.Beep(659, 500);
             do
             {
                 Console.WriteLine("Random number: " + randomNumber);
