@@ -1,8 +1,8 @@
-﻿namespace HelloWorld
+﻿namespace ConsoleWork.SubApps
 {
-    internal static class Program
+    public static class HelloWorld
     {
-        public static void Main(string[] args)
+        public static void Run()
         {
             var random = new Random();
             var randomNumber = random.Next();
