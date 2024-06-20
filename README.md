@@ -1,3 +1,3 @@
 # CsharpTuts
 
-### Learnig C# for fun 
+### Learning C# for fun 
