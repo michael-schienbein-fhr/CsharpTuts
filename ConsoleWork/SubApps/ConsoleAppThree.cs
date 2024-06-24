@@ -1,6 +1,6 @@
 ﻿namespace ConsoleWork.SubApps
 {
-    public static class ConsoleAppThree
+    public static class CutCalc
     {
         public static void Run()
         {

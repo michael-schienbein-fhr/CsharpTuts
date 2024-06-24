@@ -11,9 +11,10 @@ namespace ConsoleWork
                 Console.WriteLine("Select an application to run:");
                 Console.WriteLine("1. ConsoleAppOne");
                 Console.WriteLine("2. ConsoleAppTwo");
-                Console.WriteLine("3. ConsoleAppThree");
+                Console.WriteLine("3. CutCalc");
                 Console.WriteLine("4. HelloWorld");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. NestedLoops");
+                Console.WriteLine("6. Exit");
 
                 var choice = Console.ReadLine();
 
@@ -26,12 +27,15 @@ namespace ConsoleWork
                         ConsoleAppTwo.Run();
                         break;
                     case "3":
-                        ConsoleAppThree.Run();
+                        CutCalc.Run();
                         break;
                     case "4":
                         HelloWorld.Run();
                         break;
                     case "5":
+                        NestedLoops.Run();
+                        break;
+                    case "6":
                         Console.WriteLine("Exiting...");
                         return;
                     default:
