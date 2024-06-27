@@ -1,5 +1,4 @@
 ﻿namespace ConsoleWork.SubApps
-
 {
     public class NestedLoops
     {
@@ -28,4 +27,4 @@
             }
         }
     }
-}
+};

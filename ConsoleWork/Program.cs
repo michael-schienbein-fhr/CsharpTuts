@@ -1,4 +1,5 @@
-﻿using ConsoleWork.SubApps;
+﻿using System.Reflection;
+using ConsoleWork.SubApps;
 
 namespace ConsoleWork
 {
@@ -14,7 +15,8 @@ namespace ConsoleWork
                 Console.WriteLine("3. CutCalc");
                 Console.WriteLine("4. HelloWorld");
                 Console.WriteLine("5. NestedLoops");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Snake");
+                Console.WriteLine("7. Exit" + '\n');
 
                 var choice = Console.ReadLine();
 
@@ -36,6 +38,9 @@ namespace ConsoleWork
                         NestedLoops.Run();
                         break;
                     case "6":
+                        Snake.Run();
+                        return;
+                    case "7":
                         Console.WriteLine("Exiting...");
                         return;
                     default:
