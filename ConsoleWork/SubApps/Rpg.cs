@@ -2,29 +2,30 @@
 
 namespace ConsoleWork.SubApps
 {
-    public static class RPG
+    public static class Rpg
     {
         // Basic game logic
         static bool isRunning = true;
         static bool isMenu = true;
-        static bool isPlay = false;
-        static bool isRules = false;
+        static bool isPlay;
+        static bool isRules;
 
         //static short choice;
         static int choice;
+
         //static char choice;
         //static string choice;
 
         // Battle logic
-        static bool Fight = false;
+        static bool Fight;
         static bool Standing = true;
 
         static Random random = new Random();
 
-        // Advanture logic
-        static bool shopBuy = false;
-        static bool speakMayor = false;
-        static bool bossEnemy = false;
+        // Adventure logic
+        static bool shopBuy;
+        static bool speakMayor;
+        static bool bossEnemy;
 
         public class CharacterStats
         {
@@ -37,65 +38,132 @@ namespace ConsoleWork.SubApps
             public int GOLD { get; set; } = 7;
             public int CoordinateX { get; set; } = 0;
             public int CoordinateY { get; set; } = 0;
-            public bool IsKey { get; set; } = false;
+            public bool IsKey { get;} = false;
         }
 
         static CharacterStats characterStats = new CharacterStats();
 
-        static public string Name = characterStats.Name;
-        static public int HP = characterStats.HP;
-        static public int HPMAX = characterStats.HPMAX;
-        static public int ATK = characterStats.ATK;
-        static public int POTION = characterStats.POTION;
-        static public int ELIXIR = characterStats.ELIXIR;
-        static public int GOLD = characterStats.GOLD;
-        static public int CoordinateX = characterStats.CoordinateX;
-        static public int CoordinateY = characterStats.CoordinateY;
-        static public bool IsKey = characterStats.IsKey;
+        public static string Name = characterStats.Name;
+        public static int HP = characterStats.HP;
+        public static int HPMAX = characterStats.HPMAX;
+        public static int ATK = characterStats.ATK;
+        public static int POTION = characterStats.POTION;
+        public static int ELIXIR = characterStats.ELIXIR;
+        public static int GOLD = characterStats.GOLD;
+        public static int CoordinateX = characterStats.CoordinateX;
+        public static int CoordinateY = characterStats.CoordinateY;
+        public static bool IsKey = characterStats.IsKey;
 
-
-        // Maps 2d array or matix
+        // Maps 2d array or matrix
         static string[,] Map = //columns (X)
-        {   // x = 0    // x = 1    // x = 2   // x = 3   // x = 4   // x = 5     // x = 6         // rows (Y)
-            { "plains",  "plains",  "plains",  "plains",  "forest",  "mountain",  "cave" },        // y = 0
-            { "forest",  "forest",  "forest",  "forest",  "forest",  "hills",     "mountain" },    // y = 1
-            { "forest",  "fields",  "bridge",  "plains",  "hills",   "forest",    "hills" },       // y = 2
-            { "plains",  "shop",    "town",    "mayor",   "plains",  "hills",     "mountain" },    // y = 3
-            { "plains",  "fields",  "fields",  "plains",  "hills",   "mountain",  "mountain" }     // y = 4
+        { // x = 0    // x = 1    // x = 2   // x = 3   // x = 4   // x = 5     // x = 6         // rows (Y)
+            { "plains", "plains", "plains", "plains", "forest", "mountain", "cave" }, // y = 0
+            { "forest", "forest", "forest", "forest", "forest", "hills", "mountain" }, // y = 1
+            { "forest", "fields", "bridge", "plains", "hills", "forest", "hills" }, // y = 2
+            { "plains", "shop", "town", "mayor", "plains", "hills", "mountain" }, // y = 3
+            { "plains", "fields", "fields", "plains", "hills", "mountain", "mountain" } // y = 4
         };
 
         static int LengthY = Map.GetLength(0) - 1;
         static int LengthX = Map.GetLength(1) - 1;
 
-        // Dict of Biom enemy spawn
-        static Dictionary<string, Dictionary<string, object>> Biom = new Dictionary<string, Dictionary<string, object>>()
+        // Dict of Biome enemy spawn
+        static Dictionary<string, Dictionary<string, object>> Biome = new Dictionary<
+            string,
+            Dictionary<string, object>
+        >()
         {
-            {"plains",   new Dictionary<string, object> { {"text", "PLAINS"},       {"enemy", true}  }},
-            {"forest",   new Dictionary<string, object> { {"text", "WOODS"},        {"enemy", true}  }},
-            {"fields",   new Dictionary<string, object> { {"text", "FIELDS"},       {"enemy", false} }},
-            {"bridge",   new Dictionary<string, object> { {"text", "BRIDGE"},       {"enemy", true}  }},
-            {"town",     new Dictionary<string, object> { {"text", "TOWN CENTRE"},  {"enemy", false} }},
-            {"shop",     new Dictionary<string, object> { {"text", "SHOP"},         {"enemy", false} }},
-            {"mayor",    new Dictionary<string, object> { {"text", "MAYOR"},        {"enemy", false} }},
-            {"cave",     new Dictionary<string, object> { {"text", "CAVE"},         {"enemy", false} }},
-            {"mountain", new Dictionary<string, object> { {"text", "MOUNTAIN"},     {"enemy", true}  }},
-            {"hills",    new Dictionary<string, object> { {"text", "HILLS"},        {"enemy", true}  }},
+            {
+                "plains",
+                new Dictionary<string, object> { { "text", "PLAINS" }, { "enemy", true } }
+            },
+            {
+                "forest",
+                new Dictionary<string, object> { { "text", "WOODS" }, { "enemy", true } }
+            },
+            {
+                "fields",
+                new Dictionary<string, object> { { "text", "FIELDS" }, { "enemy", false } }
+            },
+            {
+                "bridge",
+                new Dictionary<string, object> { { "text", "BRIDGE" }, { "enemy", true } }
+            },
+            {
+                "town",
+                new Dictionary<string, object> { { "text", "TOWN CENTRE" }, { "enemy", false } }
+            },
+            {
+                "shop",
+                new Dictionary<string, object> { { "text", "SHOP" }, { "enemy", false } }
+            },
+            {
+                "mayor",
+                new Dictionary<string, object> { { "text", "MAYOR" }, { "enemy", false } }
+            },
+            {
+                "cave",
+                new Dictionary<string, object> { { "text", "CAVE" }, { "enemy", false } }
+            },
+            {
+                "mountain",
+                new Dictionary<string, object> { { "text", "MOUNTAIN" }, { "enemy", true } }
+            },
+            {
+                "hills",
+                new Dictionary<string, object> { { "text", "HILLS" }, { "enemy", true } }
+            },
         };
-
 
         static List<string> EnemyList = new List<string>() { "Goblin", "Orc", "Slime" };
 
-        static Dictionary<string, Dictionary<string, int>> Mobs = new Dictionary<string, Dictionary<string, int>>()
+        static Dictionary<string, Dictionary<string, int>> Mobs = new Dictionary<
+            string,
+            Dictionary<string, int>
+        >()
         {
-            {"Goblin",  new Dictionary<string, int>()   { { "hp", 15 },     { "atk", 3 },   { "gold", 8   }  } },
-            {"Orc",     new Dictionary<string, int>()   { { "hp", 35 },     { "atk", 5 },   { "gold", 18  }  } },
-            {"Slime",   new Dictionary<string, int>()   { { "hp", 30 },     { "atk", 2 },   { "gold", 12  }  } },
-            {"Dragon",  new Dictionary<string, int>()   { { "hp", 100 },    { "atk", 8 },   { "gold", 100 }  } }
+            {
+                "Goblin",
+                new Dictionary<string, int>()
+                {
+                    { "hp", 15 },
+                    { "atk", 3 },
+                    { "gold", 8 }
+                }
+            },
+            {
+                "Orc",
+                new Dictionary<string, int>()
+                {
+                    { "hp", 35 },
+                    { "atk", 5 },
+                    { "gold", 18 }
+                }
+            },
+            {
+                "Slime",
+                new Dictionary<string, int>()
+                {
+                    { "hp", 30 },
+                    { "atk", 2 },
+                    { "gold", 12 }
+                }
+            },
+            {
+                "Dragon",
+                new Dictionary<string, int>()
+                {
+                    { "hp", 100 },
+                    { "atk", 8 },
+                    { "gold", 100 }
+                }
+            }
         };
 
         static void startPageInfo()
         {
-            WriteLine(@"   ▄▄▄▄▀ ▄███▄      ▄      ▄▄▄▄▄   ▄   █▄▄▄▄ ██       
+            WriteLine(
+                @"   ▄▄▄▄▀ ▄███▄      ▄      ▄▄▄▄▄   ▄   █▄▄▄▄ ██       
 ▀▀▀ █    █▀   ▀      █    █     ▀▄  █  █  ▄▀ █ █      
     █    ██▄▄    ██   █ ▄  ▀▀▀▀▄ █   █ █▀▀▌  █▄▄█     
    █     █▄   ▄▀ █ █  █  ▀▄▄▄▄▀  █   █ █  █  █  █     
@@ -107,14 +175,15 @@ namespace ConsoleWork.SubApps
 ██ █   █ █     ██▄▄        █▀▀▌  █▀▀▀  █ ▀▄           
 ▐█ █  █  ███▄  █▄   ▄▀     █  █  █     █   █          
  ▐ ███▀      ▀ ▀███▀         █    █     ███           
-                            ▀      ▀                  ");
+                            ▀      ▀                  "
+            );
             drawLine();
             WriteLine("1. NEW GAME");
             WriteLine("2. LOAD GAME");
             WriteLine("3. RULES");
             WriteLine("4. QUIT GAME");
             drawLine();
-            WriteLine("Play by typing choosen options like 1 and click Enter");
+            WriteLine("Play by typing chosen options like 1 and click Enter");
             drawLine();
         }
 
@@ -147,13 +216,18 @@ namespace ConsoleWork.SubApps
                     file.WriteLine(item);
                 }
             }
-
         }
 
         static void Heal(int amount)
         {
-            if (HP + amount < HPMAX) { HP += amount; }
-            else { HP = HPMAX; }
+            if (HP + amount < HPMAX)
+            {
+                HP += amount;
+            }
+            else
+            {
+                HP = HPMAX;
+            }
             WriteLine($"{Name}'s HP refilled to {HP}!");
         }
 
@@ -166,7 +240,10 @@ namespace ConsoleWork.SubApps
                 int randomEnemyIndex = random.Next(EnemyList.Count);
                 enemyName = EnemyList[randomEnemyIndex];
             }
-            else { enemyName = "Dragon"; }
+            else
+            {
+                enemyName = "Dragon";
+            }
 
             int enemyHP = Mobs[enemyName]["hp"];
             int enemyHPMax = enemyHP;
@@ -186,8 +263,14 @@ namespace ConsoleWork.SubApps
                 drawLine();
 
                 WriteLine("1 - ATTACK");
-                if (POTION > 0) { WriteLine("2 - USE POTION (30HP)"); }
-                if (ELIXIR > 0) { WriteLine("3 - USE ELIXIR (50HP)"); }
+                if (POTION > 0)
+                {
+                    WriteLine("2 - USE POTION (30HP)");
+                }
+                if (ELIXIR > 0)
+                {
+                    WriteLine("3 - USE ELIXIR (50HP)");
+                }
                 drawLine();
 
                 Write($"{Name}# ");
@@ -201,12 +284,10 @@ namespace ConsoleWork.SubApps
                     {
                         HP -= enemyATK;
                         WriteLine($"{enemyName} dealt {enemyATK} damage to the {Name}.");
-
                     }
 
                     Write($"{Name}> ");
                     ReadLine();
-
                 }
                 else if (choice == "2")
                 {
@@ -219,7 +300,10 @@ namespace ConsoleWork.SubApps
                         HP -= enemyATK;
                         WriteLine($"{enemyName} dealt {enemyATK} damage to the {Name}.");
                     }
-                    else { WriteLine("No potions!"); }
+                    else
+                    {
+                        WriteLine("No potions!");
+                    }
 
                     Write($"{Name}> ");
                     ReadLine();
@@ -235,7 +319,10 @@ namespace ConsoleWork.SubApps
                         HP -= enemyATK;
                         WriteLine($"{enemyName} dealt {enemyATK} damage to the {Name}.");
                     }
-                    else { WriteLine("No elixirs!"); }
+                    else
+                    {
+                        WriteLine("No elixirs!");
+                    }
 
                     Write($"{Name}> ");
                     ReadLine();
@@ -282,13 +369,10 @@ namespace ConsoleWork.SubApps
                         isRunning = false;
                     }
 
-
                     Write($"{Name}> ");
                     ReadLine();
                     Clear();
                 }
-
-
             }
         }
 
@@ -312,7 +396,7 @@ namespace ConsoleWork.SubApps
                 drawLine();
 
                 Write($"{Name}# ");
-                string choice = ReadLine();
+                string choice = ReadLine() ?? string.Empty;
 
                 if (choice == "1")
                 {
@@ -322,12 +406,14 @@ namespace ConsoleWork.SubApps
                         GOLD -= 5;
                         WriteLine("You've bought a potion!");
                     }
-                    else { WriteLine("Not enough gold!"); }
+                    else
+                    {
+                        WriteLine("Not enough gold!");
+                    }
 
                     Write($"{Name}> ");
                     ReadLine();
                 }
-
                 else if (choice == "2")
                 {
                     if (GOLD >= 8)
@@ -336,7 +422,10 @@ namespace ConsoleWork.SubApps
                         GOLD -= 8;
                         WriteLine("You've bought a elixir!");
                     }
-                    else { WriteLine("Not enough gold!"); }
+                    else
+                    {
+                        WriteLine("Not enough gold!");
+                    }
 
                     Write($"{Name}> ");
                     ReadLine();
@@ -349,15 +438,18 @@ namespace ConsoleWork.SubApps
                         GOLD -= 10;
                         WriteLine("You've upgraded your weapon!");
                     }
-                    else { WriteLine("Not enough gold!"); }
+                    else
+                    {
+                        WriteLine("Not enough gold!");
+                    }
 
                     Write($"{Name}> ");
                     ReadLine();
                 }
-
-                else if (choice == "4") { shopBuy = false; }
-
-
+                else if (choice == "4")
+                {
+                    shopBuy = false;
+                }
             }
         }
 
@@ -370,12 +462,16 @@ namespace ConsoleWork.SubApps
                 WriteLine($"Hello there, {Name}!");
                 if (ATK < 10)
                 {
-                    WriteLine("You're not strong enough to face the dragon yet! Keep practicing and come back later!");
+                    WriteLine(
+                        "You're not strong enough to face the dragon yet! Keep practicing and come back later!"
+                    );
                     IsKey = false;
                 }
                 else
                 {
-                    WriteLine("You might want to take on the dragon now! Take this key but be careful with the beast!");
+                    WriteLine(
+                        "You might want to take on the dragon now! Take this key but be careful with the beast!"
+                    );
                     IsKey = true;
                 }
 
@@ -390,7 +486,6 @@ namespace ConsoleWork.SubApps
                 {
                     speakMayor = false;
                 }
-
             }
         }
 
@@ -425,10 +520,8 @@ namespace ConsoleWork.SubApps
                 {
                     bossEnemy = false;
                 }
-
             }
         }
-
 
         public static void Run()
         {
@@ -449,11 +542,13 @@ namespace ConsoleWork.SubApps
                     if (isRules)
                     {
                         Clear();
-                        WriteLine(@"
-This is advanture RPG game that has an ending and you can try to beat the game.
-Mobs: Slime, Goblic, Orc and Final Secret Boss.
-Special place on Maps: Shop, Mayor, Curve.
-Items in Shop: heal Potion, upgrade ATK.");
+                        WriteLine(
+                            @"
+                            This is advanture RPG game that has an ending and you can try to beat the game.
+                            Mobs: Slime, Goblin, Orc and Final Secret Boss.
+                            Special place on Maps: Shop, Mayor, Curve.
+                            Items in Shop: heal Potion, upgrade ATK."
+                        );
                         isRules = false;
 
                         Write($"{Name}> ");
@@ -461,18 +556,16 @@ Items in Shop: heal Potion, upgrade ATK.");
 
                         continue;
                     }
+
+                    Write($"{Name}# ");
+                    string userInput = ReadLine();
+
+                    if (int.TryParse(userInput, out choice)) { }
                     else
                     {
-                        Write($"{Name}# ");
-                        string userInput = ReadLine();
-
-                        if (int.TryParse(userInput, out choice)) { }
-                        else
-                        {
-                            Clear();
-                            startPageInfo();
-                            continue;
-                        }
+                        Clear();
+                        startPageInfo();
+                        continue;
                     }
 
                     switch (choice)
@@ -495,23 +588,23 @@ Items in Shop: heal Potion, upgrade ATK.");
                                     // TODO: Implement reading Corrupt save file exception!
                                     //if (load_list.Length == 9)
                                     //{
-                                        Name = load_list[0].TrimEnd();
-                                        HP = int.Parse(load_list[1].TrimEnd());
-                                        ATK = int.Parse(load_list[2].TrimEnd());
-                                        POTION = int.Parse(load_list[3].TrimEnd());
-                                        ELIXIR = int.Parse(load_list[4].TrimEnd());
-                                        GOLD = int.Parse(load_list[5].TrimEnd());
-                                        CoordinateX = int.Parse(load_list[6].TrimEnd());
-                                        CoordinateY = int.Parse(load_list[7].TrimEnd());
-                                        IsKey = bool.Parse(load_list[8].TrimEnd());
+                                    Name = load_list[0].TrimEnd();
+                                    HP = int.Parse(load_list[1].TrimEnd());
+                                    ATK = int.Parse(load_list[2].TrimEnd());
+                                    POTION = int.Parse(load_list[3].TrimEnd());
+                                    ELIXIR = int.Parse(load_list[4].TrimEnd());
+                                    GOLD = int.Parse(load_list[5].TrimEnd());
+                                    CoordinateX = int.Parse(load_list[6].TrimEnd());
+                                    CoordinateY = int.Parse(load_list[7].TrimEnd());
+                                    IsKey = bool.Parse(load_list[8].TrimEnd());
 
-                                        Clear();
-                                        WriteLine("Welcome back, " + Name + "!");
+                                    Clear();
+                                    WriteLine("Welcome back, " + Name + "!");
 
-                                        Write($"{Name}> ");
+                                    Write($"{Name}> ");
 
-                                        isMenu = false;
-                                        isPlay = true;
+                                    isMenu = false;
+                                    isPlay = true;
                                     //}
                                     //else
                                     //{
@@ -526,7 +619,6 @@ Items in Shop: heal Potion, upgrade ATK.");
                                 Write($"{Name}> ");
                             }
 
-
                             break;
                         case 3:
                             isRules = true;
@@ -539,16 +631,15 @@ Items in Shop: heal Potion, upgrade ATK.");
                             WriteLine("That Choice Doesn't Exist. Try others!");
                             startPageInfo();
                             break;
-
                     }
                 }
                 while (isPlay)
                 {
-                    Save();  // autosave
+                    Save(); // autosave
                     Clear();
 
-                    bool enemySpawn = (bool)Biom[Map[CoordinateY,CoordinateX]]["enemy"];
-                    string mapLocation = (string)Biom[Map[CoordinateY,CoordinateX]]["text"];
+                    bool enemySpawn = (bool)Biome[Map[CoordinateY, CoordinateX]]["enemy"];
+                    string mapLocation = (string)Biome[Map[CoordinateY, CoordinateX]]["text"];
 
                     if (!Standing)
                     {
@@ -569,12 +660,12 @@ Items in Shop: heal Potion, upgrade ATK.");
                         WriteLine($"LOCATION: {mapLocation}");
                         drawLine();
                         WriteLine(
-                            $"NAME:     {Name}\n" +
-                            $"HP:       {HP}/{HPMAX}\n" +
-                            $"ATK:      {ATK} \n" +
-                            $"POTIONS:  {POTION} \n" +
-                            $"ELIXIRS:  {ELIXIR} \n" +
-                            $"GOLD:     {GOLD} "
+                            $"NAME:     {Name}\n"
+                                + $"HP:       {HP}/{HPMAX}\n"
+                                + $"ATK:      {ATK} \n"
+                                + $"POTIONS:  {POTION} \n"
+                                + $"ELIXIRS:  {ELIXIR} \n"
+                                + $"GOLD:     {GOLD} "
                         );
                         drawLine();
                         WriteLine($"COORDINATES: {CoordinateX}, {CoordinateY}");
@@ -582,19 +673,41 @@ Items in Shop: heal Potion, upgrade ATK.");
 
                         // Action button for player
                         WriteLine("0 - SAVE AND QUIT! ");
-                        if ( CoordinateY > 0 ) { WriteLine("1 - NORTH"); }
-                        if ( CoordinateX < LengthX ) { WriteLine("2 - EAST"); }
-                        if ( CoordinateY < LengthY ){ WriteLine("3 - SOUTH"); }
-                        if ( CoordinateX > 0 ) { WriteLine("4 - WEST"); }
-                        if ( POTION > 0 ) { WriteLine("5 - USE POTION (30HP)"); }
-                        if ( ELIXIR > 0 ) { WriteLine("6 - USE ELIXIR (50HP)"); }
+                        if (CoordinateY > 0)
+                        {
+                            WriteLine("1 - NORTH");
+                        }
+                        if (CoordinateX < LengthX)
+                        {
+                            WriteLine("2 - EAST");
+                        }
+                        if (CoordinateY < LengthY)
+                        {
+                            WriteLine("3 - SOUTH");
+                        }
+                        if (CoordinateX > 0)
+                        {
+                            WriteLine("4 - WEST");
+                        }
+                        if (POTION > 0)
+                        {
+                            WriteLine("5 - USE POTION (30HP)");
+                        }
+                        if (ELIXIR > 0)
+                        {
+                            WriteLine("6 - USE ELIXIR (50HP)");
+                        }
 
-                        if (Map[CoordinateY, CoordinateX] == "shop" ||
-                            Map[CoordinateY, CoordinateX] == "mayor" ||
-                            Map[CoordinateY, CoordinateX] == "cave" ) { WriteLine("7 - ENTER"); }
+                        if (
+                            Map[CoordinateY, CoordinateX] == "shop"
+                            || Map[CoordinateY, CoordinateX] == "mayor"
+                            || Map[CoordinateY, CoordinateX] == "cave"
+                        )
+                        {
+                            WriteLine("7 - ENTER");
+                        }
 
                         drawLine();
-
 
                         Write($"{Name}# ");
                         string Destination = Convert.ToString(ReadLine());
@@ -646,7 +759,10 @@ Items in Shop: heal Potion, upgrade ATK.");
                                 POTION--;
                                 Heal(amount: 30);
                             }
-                            else { WriteLine("No potions!"); }
+                            else
+                            {
+                                WriteLine("No potions!");
+                            }
 
                             Write($"{Name}> ");
                             ReadLine();
@@ -660,7 +776,10 @@ Items in Shop: heal Potion, upgrade ATK.");
                                 ELIXIR--;
                                 Heal(amount: 50);
                             }
-                            else { WriteLine("No elixirs!"); }
+                            else
+                            {
+                                WriteLine("No elixirs!");
+                            }
 
                             Write($"{Name}> ");
                             ReadLine();
@@ -689,7 +808,6 @@ Items in Shop: heal Potion, upgrade ATK.");
                         {
                             Standing = true;
                         }
-
                     }
                 }
             }

@@ -42,7 +42,7 @@ namespace ConsoleWork
                         Snake.Run();
                         return;
                     case "7":
-                        RPG.Run();
+                        Rpg.Run();
                         return;
                     case "8":
                         Console.WriteLine("Exiting...");
