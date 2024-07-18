@@ -16,7 +16,8 @@ namespace ConsoleWork
                 Console.WriteLine("4. HelloWorld");
                 Console.WriteLine("5. NestedLoops");
                 Console.WriteLine("6. Snake");
-                Console.WriteLine("7. Exit" + '\n');
+                Console.WriteLine("7. Idle RPG" + '\n');
+                Console.WriteLine("8. Exit" + '\n');
 
                 var choice = Console.ReadLine();
 
@@ -41,6 +42,9 @@ namespace ConsoleWork
                         Snake.Run();
                         return;
                     case "7":
+                        RPG.Run();
+                        return;
+                    case "8":
                         Console.WriteLine("Exiting...");
                         return;
                     default:
